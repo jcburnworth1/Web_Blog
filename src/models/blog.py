@@ -6,10 +6,11 @@ from src.models.post import Post
 
 ## Blog Class
 class Blog(object):
-
-    def __init__(self, author, title, description, _id=None):
+    ## Blog Constructor
+    def __init__(self, author, title, description, author_id, _id=None):
         """Intialize the objet with an author, title, description, and id"""
         self.author = author
+        self.author_id = author_id
         self.title = title
         self.description = description
         self._id = uuid.uuid4().hex if _id is None else _id
@@ -37,6 +38,7 @@ class Blog(object):
         """JSON model for our application to mongo"""
         return {
             'author': self.author,
+            'author_id': self.author_id,
             'title': self.title,
             'description': self.description,
             '_id': self._id
@@ -49,3 +51,10 @@ class Blog(object):
                                       query={'_id': id})
 
         return cls(**blog_data) # Simplified the elements to match between post and database
+
+    @classmethod
+    def find_by_author_id(cls, author_id):
+        blogs = Database.find(collection='blogs',
+                              query={'author_id': author_id})
+
+        return [cls(**blog) for blog in blogs] ## Return blog object for each blog found

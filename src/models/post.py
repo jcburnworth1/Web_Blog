@@ -36,7 +36,7 @@ class Post(object):
         """Retrieve our data from mongo based on supplied post id"""
         post_data = Database.find_one(collection='posts', query={'_id': id})
 
-        return cls(**post_data) # Simplified the elements to match between post and databse
+        return cls(**post_data) # Simplified the elements to match between post and database
 
     @staticmethod
     def from_blog(id):
