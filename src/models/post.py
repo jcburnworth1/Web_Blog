@@ -7,19 +7,21 @@ import datetime
 ## Used to place blog posts into our mongo instance
 class Post(object):
 
-    def __init__(self, blog_id, title, content, author, date=datetime.datetime.utcnow(), _id=None):
+    def __init__(self, blog_id, title, content, author, created_date=datetime.datetime.utcnow(), _id=None):
         self.blog_id = blog_id
         self.title = title
         self.content = content
         self.author = author
-        self.created_date = date
+        self.created_date = created_date
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def save_to_mongo(self):
+        """Save new post to mongo in collection posts"""
         Database.insert(collection='posts',
                         data=self.json())
 
     def json(self):
+        """JSON model for our application to mongo"""
         return {
             '_id': self._id,
             'blog_id': self.blog_id,
@@ -31,15 +33,12 @@ class Post(object):
 
     @classmethod
     def from_mongo(cls, id):
+        """Retrieve our data from mongo based on supplied post id"""
         post_data = Database.find_one(collection='posts', query={'_id': id})
 
-        return cls(blog_id=post_data['blog_id'],
-                   title=post_data['title'],
-                   content=post_data['content'],
-                   author=post_data['author'],
-                   date=post_data['created_date'],
-                   _id=post_data['_id'])
+        return cls(**post_data) # Simplified the elements to match between post and databse
 
     @staticmethod
     def from_blog(id):
+        """Retrieve our data from mongo based on supplied post id"""
         return [post for post in Database.find(collection='posts', query={'blog_id':id})]
