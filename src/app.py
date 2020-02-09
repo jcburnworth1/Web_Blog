@@ -69,17 +69,10 @@ def register_user():
 
 def user_blogs(user_id=None):
     """Show user's blogs on navigation to the blogs page"""
-    print("Got to user_blogs()")
-    print("User ID: {}".format(user_id))
     if user_id is not None:
-        print("In true statement")
         user = User.get_by_id(user_id)
     else:
-        print("In False statement")
         user = User.get_by_email(session['email'])
-    print("Through if statement")
-    print("User ID Post if statement: {}".format(user._id))
-
     blogs = user.get_blogs()
 
     return render_template('user_blogs.html', blogs=blogs, email=user.email)
