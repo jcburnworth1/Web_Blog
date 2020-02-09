@@ -1,0 +1,13 @@
+<!-- Extending base html -->
+<!-- This must be rendered from Python or {} items will show up as text-->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>{{ email }}'s Blogs</h2>
+    {% for blog in blogs%}
+        <h3>{{ blog.title }}</h3>
+        <p>{{ blog.description }}</p>
+        <hr>
+    {% endfor %}
+</div>
+{% endblock %}
