@@ -14,13 +14,13 @@ class User(object):
         self._id = uuid.uuid4().hex if _id is None else _id
 
     @classmethod
-    def get_by_email(cls, email, _id=None):
+    def get_by_email(cls, email):
         """Search the database for a user by their email"""
         data = Database.find_one(collection='users',
                                  query={'email': email})
 
         if data is not None:
-            return cls(*data)
+            return cls(**data)
 
     @classmethod
     def get_by_id(cls, _id):
@@ -29,7 +29,7 @@ class User(object):
                                  query={'_id': _id})
 
         if data is not None:
-            return cls(*data)
+            return cls(**data)
 
     @staticmethod
     def login_valid(email, password):

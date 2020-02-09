@@ -1,0 +1,6 @@
+<!-- Extending base html -->
+<!-- This must be rendered from Python or {} items will show up as text-->
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hello {{ email }}</h1>
+{% endblock %}

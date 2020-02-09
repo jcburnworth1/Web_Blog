@@ -2,10 +2,10 @@
 <!-- This must be rendered from Python or {} items will show up as text-->
 {% extends "base.html" %}
 {% block content %}
-    <form>
-        <input type="text" id="email">
-        <input type="password" id="password">
+    <form id="login-form" action="/login" method="post">
+        <input type="text" id="email" name="email">
+        <input type="password" id="password" name="password">
 
-        <input type="submit" id="submit-button" >
+        <input type="submit" id="submit-button">
     </form>
 {% endblock %}
