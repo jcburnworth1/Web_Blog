@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container">
     <h2>{{ email }}'s Blogs</h2>
+    <button type="submit" class="btn btn-success">Add New Blog</button>
 
     {% for blog in blogs%}
         <h3><a href="/posts/{{ blog._id}}">{{ blog.title }}</a></h3>
