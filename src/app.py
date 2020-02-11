@@ -118,6 +118,19 @@ def create_new_post(blog_id):
 
         return make_response(blog_posts(blog_id))
 
+@app.route('/logout')
+
+def logout_user(user_id=None):
+    """Logout the user"""
+    if user_id is not None:
+        user = User.get_by_id(user_id)
+    else:
+        user = User.get_by_email(session['email'])
+
+    user.logout()
+
+    render_template('logout.html')
+
 ## If we are in main, execute the program
 if __name__ == '__main__':
     app.run()
