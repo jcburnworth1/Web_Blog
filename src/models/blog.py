@@ -45,7 +45,7 @@ class Blog(object):
 
     @classmethod
     def from_mongo(cls, id):
-        """Retrieve our data from mongo based on supplied post id"""
+        """Retrieve data from mongo based on supplied post id"""
         blog_data = Database.find_one(collection='blogs',
                                       query={'_id': id})
 
@@ -53,6 +53,7 @@ class Blog(object):
 
     @classmethod
     def find_by_author_id(cls, author_id):
+        """Retrieve data from mongo based on author's id"""
         blogs = Database.find(collection='blogs',
                               query={'author_id': author_id})
 

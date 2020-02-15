@@ -42,6 +42,7 @@ class User(object):
 
     @classmethod
     def register(cls, email, password):
+        """Register a new user into mongo"""
         user = cls.get_by_email(email)
 
         if user is None:
@@ -55,17 +56,20 @@ class User(object):
 
     @staticmethod
     def login(user_email):
+        """Authenticate a new user into the application"""
         ## Login valid has already been called
         session['email'] = user_email
 
     @staticmethod
     def logout():
+        """Logout the user and clear the session email"""
         session['email'] = None
 
     def get_blogs(self):
         return Blog.find_by_author_id(self._id)
 
     def new_blog(self, title, description):
+        """Create a new blog and save to mongo"""
         blog = Blog(author=self.email,
                     title=title,
                     description=description,
@@ -75,12 +79,14 @@ class User(object):
 
     @staticmethod
     def new_post(blog_id, title, content, date=datetime.datetime.utcnow()):
+        """Create a new post and save to mongo"""
         blog = Blog.from_mongo(blog_id)
         blog.new_post(title=title,
                       content=content,
                       date=date)
 
     def json(self):
+        """JSON model for our application to mongo"""
         return {
             'email': self.email,
             '_id': self._id,
@@ -88,5 +94,6 @@ class User(object):
         }
 
     def save_to_mongo(self):
+        """Save new user to mongo users collection"""
         Database.insert(collection='users',
                         data=self.json())
