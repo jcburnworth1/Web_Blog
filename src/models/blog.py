@@ -8,7 +8,6 @@ from src.models.post import Post
 class Blog(object):
     ## Blog Constructor
     def __init__(self, author, title, description, author_id, _id=None):
-        """Intialize the objet with an author, title, description, and id"""
         self.author = author
         self.author_id = author_id
         self.title = title
